@@ -42,10 +42,23 @@ const config: Config = {
           DEFAULT: "hsl(var(--sidebar))",
           foreground: "hsl(var(--sidebar-foreground))",
           accent: "hsl(var(--sidebar-accent))",
+          border: "hsl(var(--sidebar-border))",
         },
         destructive: {
           DEFAULT: "hsl(var(--destructive))",
           foreground: "hsl(var(--destructive-foreground))",
+        },
+        "accent-dim": "hsl(var(--accent-dim))",
+        "accent-muted": "hsl(var(--accent-muted))",
+        status: {
+          pending: "hsl(var(--status-pending))",
+          "pending-bg": "hsl(var(--status-pending-bg))",
+          running: "hsl(var(--status-running))",
+          "running-bg": "hsl(var(--status-running-bg))",
+          done: "hsl(var(--status-done))",
+          "done-bg": "hsl(var(--status-done-bg))",
+          failed: "hsl(var(--status-failed))",
+          "failed-bg": "hsl(var(--status-failed-bg))",
         },
       },
       borderRadius: {

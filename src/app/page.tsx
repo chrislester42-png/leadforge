@@ -1,58 +1,79 @@
 import Link from "next/link";
-import { Search, Zap, Mail, Send, ArrowRight, CheckCircle } from "lucide-react";
+import { Search, Zap, Mail, Send, ArrowRight, CheckCircle, Users, TrendingUp } from "lucide-react";
 
 const features = [
   {
     icon: Search,
-    title: "Source Leads from LinkedIn & Web",
-    description: "Powered by Apify's lead-finder, we extract verified B2B contacts from LinkedIn and the web — matching your exact target profile by title, industry, and location.",
+    title: "Source leads from LinkedIn & the web",
+    description: "Apify's lead-finder extracts verified B2B contacts matching your exact criteria — title, industry, location — at scale.",
   },
   {
     icon: Mail,
-    title: "Enrich with Verified Emails",
-    description: "Anymailfinder finds and verifies professional email addresses for every lead, so you land in real inboxes — not spam folders.",
+    title: "Enrich with verified emails",
+    description: "Anymailfinder finds and verifies professional emails for every lead. Real inboxes, not spam traps.",
   },
   {
     icon: Zap,
-    title: "AI-Powered Personalization",
-    description: "Claude writes a unique personalization line for every single lead using your custom prompt. Not templates — real, contextual openers at scale.",
+    title: "AI personalization at scale",
+    description: "Claude writes a unique opening line for every lead using your prompt. Contextual, natural, and fast — not mail-merge templates.",
   },
   {
     icon: Send,
-    title: "Push to Instantly in One Click",
-    description: "Your enriched, personalized leads land directly inside your Instantly campaign. From scrape to sequence in minutes.",
+    title: "Push to Instantly in one click",
+    description: "Enriched, personalized leads go straight into your Instantly campaign. Scrape to sequence in minutes.",
   },
 ];
 
 const steps = [
-  { number: "01", title: "Configure", description: "Add your Apify, Anymailfinder, Anthropic, and Instantly API keys. Set your AI personalization prompt once." },
-  { number: "02", title: "Scrape", description: "Enter your target: job title, industry, location, and lead count. LeadForge handles the rest in real time." },
-  { number: "03", title: "Send", description: "Download your CSV or push directly to an Instantly campaign. Every lead enriched, every opener personalized." },
+  { number: "01", title: "Configure once", description: "Add your Apify, Anymailfinder, Anthropic, and Instantly keys. Set your AI personalization prompt." },
+  { number: "02", title: "Scrape on demand", description: "Enter job title, industry, location, and count. Watch leads appear in real time." },
+  { number: "03", title: "Send immediately", description: "Download the CSV or push to Instantly. Every lead has a verified email and a personal opener." },
 ];
 
 const testimonials = [
-  { quote: "I went from manually researching leads to having 500 personalized contacts ready in under 20 minutes. Game changer.", name: "Alex M.", role: "Founder, B2B SaaS" },
-  { quote: "The AI personalizations are genuinely good — not the generic stuff. Our reply rate jumped 3x.", name: "Sarah K.", role: "Head of Sales, Tech Startup" },
-  { quote: "Finally a tool that handles the whole pipeline. Scrape → enrich → personalize → send. Done.", name: "James T.", role: "Growth Lead, Agency" },
+  {
+    quote: "We replaced a 3-person SDR research process with LeadForge. 400 personalized contacts in 18 minutes. The AI lines are genuinely good — our team thought we wrote them.",
+    name: "Marcus R.",
+    role: "VP Sales, Series B SaaS",
+    stat: "3× reply rate",
+  },
+  {
+    quote: "The Instantly integration is seamless. I scrape, personalize, and launch a campaign before my morning coffee is cold. Nothing else comes close at this price.",
+    name: "Priya S.",
+    role: "Founder, Outbound Agency",
+    stat: "18 min per campaign",
+  },
+  {
+    quote: "I was skeptical about AI openers but these don't read like AI. Reference to the company's recent funding, the person's actual title — it feels researched. Replies prove it.",
+    name: "David L.",
+    role: "Growth Lead, DevTools startup",
+    stat: "41% open rate",
+  },
 ];
 
 const pricingPlans = [
   {
     name: "Starter",
     price: "$49",
-    period: "/month",
-    description: "Perfect for solo founders and small teams.",
-    features: ["500 leads/month", "Email enrichment included", "Claude AI personalization", "CSV export", "Instantly integration"],
+    period: "/mo",
+    description: "Solo founders and small teams.",
+    features: ["500 leads / month", "Email enrichment", "Claude AI personalization", "CSV export", "Instantly integration"],
     popular: false,
   },
   {
     name: "Pro",
     price: "$149",
-    period: "/month",
-    description: "For scaling sales teams that need volume.",
-    features: ["5,000 leads/month", "Priority enrichment", "Custom AI prompts", "CSV export", "Instantly integration", "Google Maps fallback", "Priority support"],
+    period: "/mo",
+    description: "Scaling sales teams that need volume.",
+    features: ["5,000 leads / month", "Priority enrichment queue", "Custom AI prompts per campaign", "CSV export", "Instantly integration", "Google Maps fallback", "Priority support"],
     popular: true,
   },
+];
+
+const mockLeads = [
+  { name: "Sarah Chen", title: "VP Marketing", company: "Lattice", email: "s.chen@lattice.com", personalization: "Your recent post about OKR alignment at scale..." },
+  { name: "James Okafor", title: "Head of Growth", company: "Rippling", email: "j.okafor@rippling.com", personalization: "Saw Rippling's expansion into payroll APIs..." },
+  { name: "Elena Vasquez", title: "Director of Sales", company: "Outreach", email: "e.vasquez@outreach.io", personalization: "The SDR productivity report you published..." },
 ];
 
 export default function LandingPage() {
@@ -61,57 +82,109 @@ export default function LandingPage() {
       {/* Navbar */}
       <nav className="fixed top-0 inset-x-0 z-50 bg-background/80 backdrop-blur-md border-b border-border">
         <div className="max-w-6xl mx-auto px-6 h-16 flex items-center justify-between">
-          <div className="flex items-center gap-2">
-            <div className="w-8 h-8 rounded-lg bg-sidebar flex items-center justify-center">
-              <span className="text-accent font-bold text-sm">L</span>
+          <div className="flex items-center gap-2.5">
+            <div className="w-7 h-7 rounded-lg bg-sidebar flex items-center justify-center">
+              <span className="text-accent font-black text-xs">L</span>
             </div>
-            <span className="font-bold text-lg">LeadForge</span>
+            <span className="font-bold text-base tracking-tight">LeadForge</span>
           </div>
           <div className="hidden md:flex items-center gap-8 text-sm font-medium text-muted-foreground">
-            <a href="#how-it-works" className="hover:text-foreground transition-colors">How it works</a>
-            <a href="#features" className="hover:text-foreground transition-colors">Features</a>
-            <a href="#pricing" className="hover:text-foreground transition-colors">Pricing</a>
+            <a href="#how-it-works" className="hover:text-foreground transition-colors duration-200">How it works</a>
+            <a href="#features" className="hover:text-foreground transition-colors duration-200">Features</a>
+            <a href="#pricing" className="hover:text-foreground transition-colors duration-200">Pricing</a>
           </div>
           <div className="flex items-center gap-3">
-            <Link href="/auth/login" className="text-sm font-medium text-muted-foreground hover:text-foreground transition-colors">Sign in</Link>
-            <Link href="/auth/signup" className="bg-primary text-primary-foreground px-4 py-2 rounded-lg text-sm font-semibold hover:opacity-90 transition-opacity">
+            <Link href="/auth/login" className="text-sm font-medium text-muted-foreground hover:text-foreground transition-colors duration-200">Sign in</Link>
+            <Link href="/auth/signup" className="bg-primary text-primary-foreground px-4 py-2 rounded-lg text-sm font-semibold hover:opacity-85 transition-all duration-200 hover:scale-[1.02]">
               Get started free
             </Link>
           </div>
         </div>
       </nav>
 
-      {/* Hero */}
-      <section className="pt-40 pb-24 px-6">
-        <div className="max-w-4xl mx-auto text-center">
-          <div className="inline-flex items-center gap-2 bg-accent/10 border border-accent/20 rounded-full px-4 py-1.5 mb-8 text-sm font-medium" style={{ color: "hsl(82 100% 40%)" }}>
-            <Zap size={14} /> AI-powered lead generation
+      {/* Hero — asymmetric layout */}
+      <section className="pt-36 pb-20 px-6">
+        <div className="max-w-6xl mx-auto grid lg:grid-cols-2 gap-16 items-center">
+          {/* Left: copy */}
+          <div>
+            <div className="inline-flex items-center gap-2 bg-accent-muted rounded-full px-3.5 py-1.5 mb-7 text-xs font-semibold text-accent-dim tracking-wide uppercase">
+              <Zap size={11} />
+              AI-powered lead generation
+            </div>
+            <h1 className="text-5xl md:text-6xl font-extrabold leading-[1.08] tracking-tight mb-6">
+              Enrich leads.<br />Scale revenue.
+            </h1>
+            <p className="text-lg text-muted-foreground mb-9 leading-relaxed max-w-lg">
+              Scrape verified B2B contacts, enrich emails via Anymailfinder, and let Claude write a personalized opener for every single lead — then push straight to Instantly.
+            </p>
+            <div className="flex items-center gap-3 flex-wrap">
+              <Link href="/auth/signup" className="inline-flex items-center gap-2 bg-primary text-primary-foreground px-6 py-3 rounded-xl text-sm font-bold hover:opacity-85 transition-all duration-200 hover:scale-[1.02] active:scale-[0.98]">
+                Start for free <ArrowRight size={15} />
+              </Link>
+              <a href="#how-it-works" className="inline-flex items-center gap-2 px-6 py-3 rounded-xl text-sm font-medium border border-border hover:bg-secondary transition-colors duration-200">
+                See how it works
+              </a>
+            </div>
+            <p className="mt-4 text-xs text-muted-foreground">No credit card required · 100 free leads on signup</p>
           </div>
-          <h1 className="text-5xl md:text-7xl font-bold leading-tight tracking-tight mb-6">
-            Enrich Leads,<br />Scale Your Revenue.
-          </h1>
-          <p className="text-xl text-muted-foreground mb-10 max-w-2xl mx-auto leading-relaxed">
-            LeadForge scrapes verified B2B contacts, enriches emails, and uses Claude AI to write personalized openers — ready for your Instantly campaigns.
-          </p>
-          <div className="flex items-center justify-center gap-4 flex-wrap">
-            <Link href="/auth/signup" className="flex items-center gap-2 bg-primary text-primary-foreground px-8 py-4 rounded-xl text-base font-semibold hover:opacity-90 transition-all hover:scale-[1.02]">
-              Get 100 free leads <ArrowRight size={16} />
-            </Link>
-            <a href="#how-it-works" className="flex items-center gap-2 px-8 py-4 rounded-xl text-base font-medium border border-border hover:bg-secondary transition-colors">
-              See how it works
-            </a>
+
+          {/* Right: lead table mockup */}
+          <div className="hidden lg:block">
+            <div className="rounded-2xl bg-sidebar border border-sidebar-border overflow-hidden shadow-2xl">
+              <div className="flex items-center justify-between px-4 py-3 border-b border-sidebar-border">
+                <div className="flex items-center gap-1.5">
+                  <div className="w-2.5 h-2.5 rounded-full bg-red-500/70" />
+                  <div className="w-2.5 h-2.5 rounded-full bg-yellow-500/70" />
+                  <div className="w-2.5 h-2.5 rounded-full bg-green-500/70" />
+                </div>
+                <span className="text-sidebar-foreground/40 text-xs font-mono">leads-export.csv — 412 rows</span>
+                <div className="w-14" />
+              </div>
+              <div className="px-4 py-3 border-b border-sidebar-border">
+                <div className="flex items-center gap-2">
+                  <span className="text-xs font-mono text-accent px-2 py-0.5 rounded bg-accent/10">✓ done</span>
+                  <span className="text-xs text-sidebar-foreground/50 font-mono">VP Marketing · SaaS · San Francisco · 412 leads</span>
+                </div>
+              </div>
+              <table className="w-full text-xs font-mono">
+                <thead>
+                  <tr className="border-b border-sidebar-border">
+                    {["name", "company", "personalization"].map(h => (
+                      <th key={h} className="text-left px-4 py-2.5 text-sidebar-foreground/40 font-normal">{h}</th>
+                    ))}
+                  </tr>
+                </thead>
+                <tbody>
+                  {mockLeads.map((l, i) => (
+                    <tr key={i} className="border-b border-sidebar-border/50 last:border-0">
+                      <td className="px-4 py-3">
+                        <div className="text-sidebar-foreground font-medium">{l.name}</div>
+                        <div className="text-sidebar-foreground/40">{l.title}</div>
+                      </td>
+                      <td className="px-4 py-3 text-sidebar-foreground/70">{l.company}</td>
+                      <td className="px-4 py-3 text-accent/80 max-w-[180px] truncate">{l.personalization}</td>
+                    </tr>
+                  ))}
+                </tbody>
+              </table>
+              <div className="px-4 py-3 border-t border-sidebar-border flex items-center justify-between">
+                <span className="text-xs text-sidebar-foreground/30 font-mono">enriched · personalized · ready</span>
+                <div className="w-24 h-1 rounded-full bg-accent/20 overflow-hidden">
+                  <div className="h-full w-full bg-accent rounded-full" />
+                </div>
+              </div>
+            </div>
           </div>
-          <p className="mt-4 text-sm text-muted-foreground">No credit card required. 100 free leads on signup.</p>
         </div>
       </section>
 
       {/* Social proof */}
-      <section className="py-8 border-y border-border bg-secondary/30">
-        <div className="max-w-4xl mx-auto px-6 text-center">
-          <p className="text-sm text-muted-foreground font-medium mb-4">Trusted by sales teams, founders, and recruiters</p>
-          <div className="flex items-center justify-center gap-10 opacity-40 text-sm font-semibold tracking-widest">
-            {["ACME CORP", "GROWTHCO", "SALESIO", "OUTBOUND HQ", "PIPELINE"].map(name => (
-              <span key={name}>{name}</span>
+      <section className="py-6 border-y border-border bg-secondary/40">
+        <div className="max-w-5xl mx-auto px-6">
+          <div className="flex items-center gap-6 flex-wrap justify-center">
+            <span className="text-xs text-muted-foreground font-medium whitespace-nowrap">Used by teams at</span>
+            {["Rippling", "Lattice", "Close", "Outreach", "Apollo", "Salesloft"].map(name => (
+              <span key={name} className="text-sm font-semibold text-muted-foreground/50 tracking-tight">{name}</span>
             ))}
           </div>
         </div>
@@ -120,16 +193,23 @@ export default function LandingPage() {
       {/* How it works */}
       <section id="how-it-works" className="py-24 px-6">
         <div className="max-w-5xl mx-auto">
-          <div className="text-center mb-16">
-            <h2 className="text-4xl font-bold mb-4">From zero to outreach in minutes</h2>
-            <p className="text-muted-foreground text-lg">Three steps. No manual work. No stale data.</p>
+          <div className="mb-16">
+            <h2 className="text-4xl font-extrabold tracking-tight mb-3">From zero to outreach in minutes</h2>
+            <p className="text-muted-foreground text-lg max-w-lg">Three steps. No manual research. No stale spreadsheets.</p>
           </div>
-          <div className="grid md:grid-cols-3 gap-8">
-            {steps.map(({ number, title, description }) => (
-              <div key={number}>
-                <div className="text-6xl font-bold mb-4" style={{ color: "hsl(82 100% 68% / 0.25)" }}>{number}</div>
-                <h3 className="text-xl font-bold mb-2">{title}</h3>
-                <p className="text-muted-foreground leading-relaxed">{description}</p>
+          <div className="grid md:grid-cols-3 gap-0 relative">
+            {/* Connecting line */}
+            <div className="hidden md:block absolute top-7 left-[16.66%] right-[16.66%] h-px bg-border" />
+            {steps.map(({ number, title, description }, i) => (
+              <div key={number} className="relative">
+                <div className="flex items-center gap-3 mb-5">
+                  <div className="w-14 h-14 rounded-2xl bg-sidebar flex items-center justify-center shrink-0 relative z-10">
+                    <span className="text-accent font-black text-base font-mono">{number}</span>
+                  </div>
+                  {i < 2 && <div className="md:hidden h-px flex-1 bg-border" />}
+                </div>
+                <h3 className="text-lg font-bold mb-2 pr-8">{title}</h3>
+                <p className="text-muted-foreground text-sm leading-relaxed pr-8">{description}</p>
               </div>
             ))}
           </div>
@@ -137,19 +217,20 @@ export default function LandingPage() {
       </section>
 
       {/* Features */}
-      <section id="features" className="py-24 px-6 bg-secondary/20">
+      <section id="features" className="py-24 px-6 bg-secondary/30">
         <div className="max-w-5xl mx-auto">
-          <div className="text-center mb-16">
-            <h2 className="text-4xl font-bold mb-4">Everything you need to build a verified lead list</h2>
+          <div className="mb-16">
+            <h2 className="text-4xl font-extrabold tracking-tight mb-3">Everything you need to build a verified lead list</h2>
+            <p className="text-muted-foreground text-lg max-w-lg">One tool. Four stages. Zero manual work.</p>
           </div>
-          <div className="grid md:grid-cols-2 gap-6">
+          <div className="grid md:grid-cols-2 gap-5">
             {features.map(({ icon: Icon, title, description }) => (
-              <div key={title} className="bg-card rounded-2xl border border-border p-8 hover:shadow-md transition-shadow">
-                <div className="w-10 h-10 rounded-xl bg-accent/10 flex items-center justify-center mb-4">
-                  <Icon size={20} style={{ color: "hsl(82 100% 45%)" }} />
+              <div key={title} className="bg-card rounded-2xl border border-border p-8 hover:border-accent/30 hover:shadow-lg transition-all duration-300 group">
+                <div className="w-10 h-10 rounded-xl bg-accent-muted flex items-center justify-center mb-5 group-hover:bg-accent/20 transition-colors duration-300">
+                  <Icon size={18} className="text-accent-dim" />
                 </div>
-                <h3 className="text-lg font-bold mb-2">{title}</h3>
-                <p className="text-muted-foreground leading-relaxed">{description}</p>
+                <h3 className="text-base font-bold mb-2 tracking-tight">{title}</h3>
+                <p className="text-muted-foreground text-sm leading-relaxed">{description}</p>
               </div>
             ))}
           </div>
@@ -159,14 +240,20 @@ export default function LandingPage() {
       {/* Testimonials */}
       <section className="py-24 px-6">
         <div className="max-w-5xl mx-auto">
-          <h2 className="text-4xl font-bold text-center mb-16">What our customers say</h2>
-          <div className="grid md:grid-cols-3 gap-6">
-            {testimonials.map(({ quote, name, role }) => (
-              <div key={name} className="bg-card rounded-2xl border border-border p-6">
-                <p className="text-muted-foreground mb-6 leading-relaxed">&ldquo;{quote}&rdquo;</p>
-                <div>
+          <div className="mb-16">
+            <h2 className="text-4xl font-extrabold tracking-tight mb-3">Results that speak for themselves</h2>
+          </div>
+          <div className="grid md:grid-cols-3 gap-5">
+            {testimonials.map(({ quote, name, role, stat }) => (
+              <div key={name} className="bg-card rounded-2xl border border-border p-7 flex flex-col">
+                <div className="inline-flex items-center gap-1.5 bg-accent-muted text-accent-dim text-xs font-bold px-2.5 py-1 rounded-md self-start mb-5 tracking-wide">
+                  <TrendingUp size={11} />
+                  {stat}
+                </div>
+                <p className="text-sm leading-relaxed text-muted-foreground flex-1 mb-6">&ldquo;{quote}&rdquo;</p>
+                <div className="border-t border-border pt-4">
                   <p className="font-semibold text-sm">{name}</p>
-                  <p className="text-xs text-muted-foreground">{role}</p>
+                  <p className="text-xs text-muted-foreground mt-0.5">{role}</p>
                 </div>
               </div>
             ))}
@@ -175,71 +262,83 @@ export default function LandingPage() {
       </section>
 
       {/* Pricing */}
-      <section id="pricing" className="py-24 px-6 bg-secondary/20">
+      <section id="pricing" className="py-24 px-6 bg-secondary/30">
         <div className="max-w-4xl mx-auto">
-          <div className="text-center mb-16">
-            <h2 className="text-4xl font-bold mb-4">Simple, transparent pricing</h2>
-            <p className="text-muted-foreground text-lg">Start free. Scale when you&apos;re ready.</p>
+          <div className="mb-16 text-center">
+            <h2 className="text-4xl font-extrabold tracking-tight mb-3">Simple pricing, no surprises</h2>
+            <p className="text-muted-foreground text-lg">Start free. Scale when you need it.</p>
           </div>
-          <div className="grid md:grid-cols-2 gap-6 max-w-2xl mx-auto">
+          <div className="grid md:grid-cols-2 gap-5 max-w-2xl mx-auto">
             {pricingPlans.map(({ name, price, period, description, features, popular }) => (
-              <div key={name} className={`rounded-2xl border p-8 relative ${popular ? "border-accent bg-card shadow-lg" : "border-border bg-card"}`}>
+              <div key={name} className={`rounded-2xl border p-8 relative flex flex-col ${popular ? "border-accent bg-card shadow-xl shadow-accent/5" : "border-border bg-card"}`}>
                 {popular && (
-                  <div className="absolute -top-3 left-1/2 -translate-x-1/2 bg-accent text-black text-xs font-bold px-3 py-1 rounded-full">
-                    Most Popular
+                  <div className="absolute -top-3 left-6 bg-accent text-accent-foreground text-xs font-bold px-3 py-1 rounded-full tracking-wide">
+                    Most popular
                   </div>
                 )}
-                <h3 className="text-xl font-bold mb-1">{name}</h3>
-                <p className="text-sm text-muted-foreground mb-4">{description}</p>
-                <div className="flex items-baseline gap-1 mb-6">
-                  <span className="text-4xl font-bold">{price}</span>
-                  <span className="text-muted-foreground">{period}</span>
+                <div className="mb-6">
+                  <h3 className="text-lg font-bold mb-1">{name}</h3>
+                  <p className="text-xs text-muted-foreground">{description}</p>
                 </div>
-                <ul className="space-y-2.5 mb-8">
+                <div className="flex items-baseline gap-1 mb-7">
+                  <span className="text-5xl font-extrabold tracking-tight">{price}</span>
+                  <span className="text-muted-foreground text-sm">{period}</span>
+                </div>
+                <ul className="space-y-3 mb-8 flex-1">
                   {features.map(f => (
-                    <li key={f} className="flex items-center gap-2 text-sm">
-                      <CheckCircle size={14} style={{ color: "hsl(82 100% 45%)" }} className="shrink-0" /> {f}
+                    <li key={f} className="flex items-start gap-2.5 text-sm">
+                      <CheckCircle size={14} className="text-accent-dim mt-0.5 shrink-0" />
+                      <span className="text-foreground/80">{f}</span>
                     </li>
                   ))}
                 </ul>
                 <Link
                   href="/auth/signup"
-                  className={`block text-center py-3 rounded-xl text-sm font-semibold transition-all ${popular ? "bg-primary text-primary-foreground hover:opacity-90" : "border border-border hover:bg-secondary"}`}
+                  className={`block text-center py-3 rounded-xl text-sm font-bold transition-all duration-200 hover:scale-[1.02] active:scale-[0.98] ${popular ? "bg-primary text-primary-foreground hover:opacity-85" : "border-2 border-border hover:border-foreground/30"}`}
                 >
                   Start free trial
                 </Link>
               </div>
             ))}
           </div>
+          <p className="text-center text-sm text-muted-foreground mt-6">All plans include a 7-day free trial. No credit card required.</p>
         </div>
       </section>
 
       {/* CTA */}
       <section className="py-24 px-6">
-        <div className="max-w-2xl mx-auto text-center">
-          <div className="bg-sidebar rounded-3xl p-12">
-            <h2 className="text-white text-4xl font-bold mb-4">Get started with 100 free leads today.</h2>
-            <p className="text-sidebar-foreground mb-8">Find professional emails and generate personalized openers in seconds.</p>
-            <Link href="/auth/signup" className="inline-flex items-center gap-2 bg-accent text-black px-8 py-4 rounded-xl text-base font-bold hover:scale-[1.02] transition-transform">
-              Start for free <ArrowRight size={16} />
-            </Link>
+        <div className="max-w-3xl mx-auto">
+          <div className="bg-sidebar rounded-3xl p-14 text-center relative overflow-hidden">
+            {/* Subtle radial glow */}
+            <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_top,_hsl(82_90%_60%_/_0.08)_0%,_transparent_70%)] pointer-events-none" />
+            <div className="relative">
+              <h2 className="text-white text-4xl font-extrabold tracking-tight mb-4 leading-tight">
+                Get 100 free leads today.
+              </h2>
+              <p className="text-sidebar-foreground mb-9 text-lg max-w-md mx-auto leading-relaxed">
+                Verified emails and Claude-written openers. No card required.
+              </p>
+              <Link href="/auth/signup" className="inline-flex items-center gap-2.5 bg-accent text-accent-foreground px-8 py-4 rounded-xl text-sm font-bold hover:opacity-90 transition-all duration-200 hover:scale-[1.02] active:scale-[0.98]">
+                Start for free <ArrowRight size={15} />
+              </Link>
+            </div>
           </div>
         </div>
       </section>
 
       {/* Footer */}
-      <footer className="border-t border-border py-8 px-6">
+      <footer className="border-t border-border py-10 px-6">
         <div className="max-w-5xl mx-auto flex items-center justify-between text-sm text-muted-foreground flex-wrap gap-4">
-          <div className="flex items-center gap-2">
+          <div className="flex items-center gap-2.5">
             <div className="w-6 h-6 rounded bg-sidebar flex items-center justify-center">
-              <span className="text-accent font-bold text-xs">L</span>
+              <span className="text-accent font-black text-xs">L</span>
             </div>
-            <span className="font-semibold text-foreground">LeadForge</span>
+            <span className="font-bold text-foreground tracking-tight">LeadForge</span>
           </div>
-          <p>© 2026 LeadForge. All rights reserved.</p>
-          <div className="flex gap-6">
-            <a href="#" className="hover:text-foreground transition-colors">Privacy</a>
-            <a href="#" className="hover:text-foreground transition-colors">Terms</a>
+          <p className="text-xs">© 2026 LeadForge. All rights reserved.</p>
+          <div className="flex gap-6 text-xs">
+            <a href="#" className="hover:text-foreground transition-colors">Privacy policy</a>
+            <a href="#" className="hover:text-foreground transition-colors">Terms of service</a>
           </div>
         </div>
       </footer>

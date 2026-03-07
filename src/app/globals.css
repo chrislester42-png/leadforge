@@ -4,31 +4,71 @@
 
 @layer base {
   :root {
-    --background: 40 20% 97%;
-    --foreground: 0 0% 5%;
+    --background: 40 15% 96%;
+    --foreground: 0 0% 7%;
     --card: 0 0% 100%;
-    --card-foreground: 0 0% 5%;
-    --border: 0 0% 90%;
-    --input: 0 0% 90%;
-    --ring: 82 100% 68%;
-    --accent: 82 100% 68%;
+    --card-foreground: 0 0% 7%;
+    --border: 0 0% 88%;
+    --input: 0 0% 88%;
+    --ring: 82 90% 55%;
+
+    /* Accent shades */
+    --accent: 82 90% 60%;
+    --accent-dim: 82 90% 45%;
+    --accent-muted: 82 90% 92%;
     --accent-foreground: 0 0% 5%;
-    --primary: 0 0% 5%;
+
+    --primary: 0 0% 7%;
     --primary-foreground: 0 0% 97%;
-    --secondary: 0 0% 96%;
-    --secondary-foreground: 0 0% 5%;
-    --muted: 0 0% 96%;
-    --muted-foreground: 0 0% 45%;
-    --destructive: 0 84% 60%;
+    --secondary: 0 0% 95%;
+    --secondary-foreground: 0 0% 7%;
+    --muted: 0 0% 94%;
+    --muted-foreground: 0 0% 48%;
+    --destructive: 0 72% 55%;
     --destructive-foreground: 0 0% 98%;
-    --sidebar: 0 0% 5%;
-    --sidebar-foreground: 0 0% 85%;
-    --sidebar-accent: 82 100% 68%;
+
+    /* Sidebar */
+    --sidebar: 0 0% 6%;
+    --sidebar-foreground: 0 0% 80%;
+    --sidebar-accent: 82 90% 60%;
+    --sidebar-border: 0 0% 12%;
+
+    /* Status colors */
+    --status-pending: 38 92% 50%;
+    --status-pending-bg: 38 92% 95%;
+    --status-running: 215 85% 55%;
+    --status-running-bg: 215 85% 95%;
+    --status-done: 142 65% 42%;
+    --status-done-bg: 142 65% 94%;
+    --status-failed: 0 72% 55%;
+    --status-failed-bg: 0 72% 95%;
+
     --radius: 0.75rem;
   }
 }
 
 @layer base {
+  html { scroll-behavior: smooth; }
   * { @apply border-border; }
   body { @apply bg-background text-foreground font-jakarta antialiased; }
+
+  h1, h2, h3, h4 {
+    text-wrap: balance;
+    letter-spacing: -0.02em;
+  }
+
+  p { text-wrap: pretty; }
+}
+
+/* Grain overlay — fixed, covers everything, non-interactive */
+body::after {
+  content: "";
+  position: fixed;
+  inset: 0;
+  z-index: 9999;
+  pointer-events: none;
+  opacity: 0.03;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)'/%3E%3C/svg%3E");
+  background-repeat: repeat;
+  background-size: 128px;
 }

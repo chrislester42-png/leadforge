@@ -37,16 +37,6 @@ export async function middleware(request: NextRequest) {
     return NextResponse.redirect(new URL("/dashboard", request.url));
   }
 
-  if (user && isDashboardRoute && !pathname.startsWith("/config")) {
-    const { data: config } = await supabase
-      .from("user_configs")
-      .select("id")
-      .single();
-    if (!config) {
-      return NextResponse.redirect(new URL("/config", request.url));
-    }
-  }
-
   return response;
 }
 
