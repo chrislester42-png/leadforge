@@ -20,17 +20,19 @@ export default async function OrderDetailPage({ params }: { params: { id: string
   const { data: leads } = await supabase.from("leads").select("*").eq("job_id", params.id).order("created_at");
 
   return (
-    <div>
-      <Link href="/orders" className="flex items-center gap-2 text-sm text-muted-foreground hover:text-foreground mb-6">
-        <ArrowLeft size={14} /> Back to Orders
+    <div className="max-w-5xl">
+      <Link href="/orders" className="inline-flex items-center gap-1.5 text-sm text-muted-foreground hover:text-foreground transition-colors mb-6">
+        <ArrowLeft size={13} /> Back to orders
       </Link>
 
       <div className="flex items-start justify-between mb-8">
         <div>
-          <h1 className="text-2xl font-bold mb-1">
-            {[job.job_title, job.industry, job.location].filter(Boolean).join(" · ") || "Scrape Job"}
+          <h1 className="text-2xl font-extrabold tracking-tight mb-1">
+            {[job.job_title, job.industry, job.location].filter(Boolean).join(" · ") || "Scrape job"}
           </h1>
-          <p className="text-muted-foreground">{job.lead_count} leads · {new Date(job.created_at).toLocaleDateString()}</p>
+          <p className="text-muted-foreground text-sm">
+            <span className="tabular-nums font-semibold text-foreground">{job.lead_count}</span> leads · {new Date(job.created_at).toLocaleDateString()}
+          </p>
         </div>
         <div className="flex items-center gap-3">
           {job.status === "done" && (

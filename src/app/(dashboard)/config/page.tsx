@@ -50,8 +50,8 @@ export default function ConfigPage() {
 
   return (
     <div className="max-w-2xl">
-      <h1 className="text-2xl font-bold mb-1">Configuration</h1>
-      <p className="text-muted-foreground mb-8">Set up your API keys and personalization settings.</p>
+      <h1 className="text-2xl font-extrabold tracking-tight mb-1">Configuration</h1>
+      <p className="text-muted-foreground text-sm mb-8">Set up your API keys and personalization settings.</p>
 
       <form onSubmit={handleSubmit(onSubmit)} className="space-y-6">
         <Card>

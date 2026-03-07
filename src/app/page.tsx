@@ -1,5 +1,5 @@
 import Link from "next/link";
-import { Search, Zap, Mail, Send, ArrowRight, CheckCircle, Users, TrendingUp } from "lucide-react";
+import { Search, Zap, Mail, Send, ArrowRight, CheckCircle, TrendingUp } from "lucide-react";
 
 const features = [
   {
