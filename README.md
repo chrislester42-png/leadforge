@@ -1,36 +1,33 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# LeadForge
 
-## Getting Started
+B2B lead generation SaaS. Configure your API keys, submit a scrape job with targeting criteria (job title, industry, location, count), and the platform runs a three-stage async pipeline:
 
-First, run the development server:
+1. **Scrape** — pulls LinkedIn leads via Apify, with automatic fallback to Google Maps data when yield is under 50% of target
+2. **Enrich** — finds and verifies professional emails for each lead via Anymailfinder
+3. **Personalize** — Claude writes a custom cold-email opener per lead using the user's saved prompt template
+
+Results are stored in Supabase, downloadable as CSV, or pushed directly to an Instantly campaign.
+
+## Tech stack
+
+- Next.js 14 (App Router) + React 18 + TypeScript (strict)
+- Tailwind CSS with a custom HSL design-token system
+- Radix UI primitives, React Hook Form + Zod
+- Supabase (auth + database, SSR cookie sessions)
+- Anthropic Claude API for per-lead personalization
+- Deployed on Netlify
+
+## Running locally
 
 ```bash
+npm install
 npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+Requires a `.env.local` with Supabase credentials; per-user API keys (Apify, Anymailfinder, Anthropic, Instantly) are configured in-app and stored server-side.
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+## Structure
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
-
-## Learn More
-
-To learn more about Next.js, take a look at the following resources:
-
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
-
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
-
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+- `src/app/(dashboard)/` — dashboard, scrape job form, order history, config
+- `src/app/api/` — pipeline routes (scrape, enrich, personalize, Instantly push)
+- `supabase/` — database schema and migrations
