@@ -25,7 +25,20 @@ export default function ConfigPage() {
   const { register, handleSubmit, reset, formState: { errors } } = useForm<ConfigForm>({
     resolver: zodResolver(schema),
     defaultValues: {
-      personalization_prompt: "Write a 1-2 sentence personalized opening for a cold email to {{firstname}} who works as {{title}} at {{company}}. Reference something specific about their role. Be natural and conversational.",
+      personalization_prompt: `You are a helpful intelligent writing assistant. Your task is to take prospect information and generate a customized one-line email icebreaker. The sender is a mortgage lender / real estate professional who wants to build a relationship — not sell directly. They're reaching out to people in industries where the workers are likely homebuyers, refinancers, or real estate-adjacent professionals (agents, builders, financial planners, etc.).
+
+Return your response in this exact JSON format:
+{"verdict": "true or false", "icebreaker": "the icebreaker text", "shortenedCompanyName": "shortened name"}
+
+Rules:
+- Write in a Spartan/laconic tone — brief, direct, warm but not salesy.
+- The goal is to START A RELATIONSHIP, not pitch a product. The icebreaker should feel like a peer reaching out, not a vendor.
+- If the data is about a company (not a person), return verdict "false".
+- Shorten company names wherever possible (e.g., "Mayo" instead of "Mayo Incorporated", "Bay Area Dental" instead of "Bay Area Dental Associates LLC").
+- Shorten locations too (e.g., "San Fran" instead of "San Francisco", "DFW" instead of "Dallas-Fort Worth").
+- The icebreaker format: Hey {{firstname}}. Love [something about their practice/company]. Also work with [paraphrased industry] professionals. Wanted to run something by you.
+
+Prospect info: {{firstname}} {{lastname}}, {{title}} at {{company}}, {{location}}`,
     },
   });
 

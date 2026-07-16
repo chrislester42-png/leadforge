@@ -24,7 +24,7 @@ export default async function OrdersPage() {
   };
 
   return (
-    <div className="max-w-5xl">
+    <div>
       <div className="flex items-center justify-between mb-8">
         <div>
           <h1 className="text-2xl font-extrabold tracking-tight mb-1">Orders</h1>

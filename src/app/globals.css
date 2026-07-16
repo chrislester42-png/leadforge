@@ -10,12 +10,12 @@
     --card-foreground: 0 0% 7%;
     --border: 0 0% 88%;
     --input: 0 0% 88%;
-    --ring: 82 90% 55%;
+    --ring: 82 68% 48%;
 
     /* Accent shades */
-    --accent: 82 90% 60%;
-    --accent-dim: 82 90% 45%;
-    --accent-muted: 82 90% 92%;
+    --accent: 82 68% 50%;
+    --accent-dim: 82 68% 37%;
+    --accent-muted: 82 52% 93%;
     --accent-foreground: 0 0% 5%;
 
     --primary: 0 0% 7%;
@@ -30,7 +30,7 @@
     /* Sidebar */
     --sidebar: 0 0% 6%;
     --sidebar-foreground: 0 0% 80%;
-    --sidebar-accent: 82 90% 60%;
+    --sidebar-accent: 82 68% 50%;
     --sidebar-border: 0 0% 12%;
 
     /* Status colors */
@@ -59,6 +59,41 @@
 
   p { text-wrap: pretty; }
 }
+
+/* ── Animations ─────────────────────────────────────────── */
+@keyframes fade-in-up {
+  from { opacity: 0; transform: translateY(18px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes fade-in {
+  from { opacity: 0; }
+  to   { opacity: 1; }
+}
+
+@keyframes slide-in-right {
+  from { opacity: 0; transform: translateX(24px); }
+  to   { opacity: 1; transform: translateX(0); }
+}
+
+.animate-fade-in-up {
+  animation: fade-in-up 0.55s cubic-bezier(0.16, 1, 0.3, 1) both;
+}
+
+.animate-fade-in {
+  animation: fade-in 0.4s ease both;
+}
+
+.animate-slide-in-right {
+  animation: slide-in-right 0.6s cubic-bezier(0.16, 1, 0.3, 1) both;
+}
+
+.animation-delay-100 { animation-delay: 100ms; }
+.animation-delay-200 { animation-delay: 200ms; }
+.animation-delay-300 { animation-delay: 300ms; }
+.animation-delay-400 { animation-delay: 400ms; }
+.animation-delay-500 { animation-delay: 500ms; }
+.animation-delay-600 { animation-delay: 600ms; }
 
 /* Grain overlay — fixed, covers everything, non-interactive */
 body::after {

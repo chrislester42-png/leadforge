@@ -1,7 +1,7 @@
 "use client";
 import Link from "next/link";
 import { usePathname, useRouter } from "next/navigation";
-import { LayoutDashboard, Search, ClipboardList, Settings, LogOut } from "lucide-react";
+import { LayoutDashboard, Search, ClipboardList, Megaphone, Settings, LogOut } from "lucide-react";
 import { createClient } from "@/lib/supabase";
 import { cn } from "@/lib/utils";
 
@@ -9,6 +9,7 @@ const navItems = [
   { href: "/dashboard", icon: LayoutDashboard, label: "Dashboard" },
   { href: "/scrape", icon: Search, label: "Scrape" },
   { href: "/orders", icon: ClipboardList, label: "Orders" },
+  { href: "/campaigns", icon: Megaphone, label: "Campaigns" },
   { href: "/config", icon: Settings, label: "Config" },
 ];
 
@@ -43,7 +44,7 @@ export function Sidebar() {
                 "flex items-center gap-3 px-3 py-2.5 rounded-lg transition-colors text-sm font-medium",
                 active
                   ? "bg-accent text-[#0a0a0a]"
-                  : "text-sidebar-foreground hover:bg-white/8 hover:text-white"
+                  : "text-sidebar-foreground hover:bg-white/10 hover:text-white"
               )}
             >
               <Icon size={16} className="shrink-0" />
@@ -52,14 +53,16 @@ export function Sidebar() {
           );
         })}
       </nav>
-      <button
-        onClick={handleSignOut}
-        aria-label="Sign out"
-        className="flex items-center gap-3 px-3 py-2.5 rounded-lg text-sidebar-foreground hover:bg-white/8 hover:text-white transition-colors text-sm font-medium"
-      >
-        <LogOut size={16} className="shrink-0" />
-        <span className="hidden lg:block">Sign out</span>
-      </button>
+      <div className="border-t border-sidebar-border mt-1 pt-2">
+        <button
+          onClick={handleSignOut}
+          aria-label="Sign out"
+          className="w-full flex items-center gap-3 px-3 py-2.5 rounded-lg text-sidebar-foreground/70 hover:bg-white/8 hover:text-white transition-colors text-sm font-medium"
+        >
+          <LogOut size={15} className="shrink-0" />
+          <span className="hidden lg:block">Sign out</span>
+        </button>
+      </div>
     </aside>
   );
 }

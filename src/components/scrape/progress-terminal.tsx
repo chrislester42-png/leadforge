@@ -10,7 +10,12 @@ interface SseEvent {
   message: string;
 }
 
-export function ProgressTerminal({ jobId }: { jobId: string }) {
+interface ProgressTerminalProps {
+  jobId: string;
+  onStageChange?: (stage: string) => void;
+}
+
+export function ProgressTerminal({ jobId, onStageChange }: ProgressTerminalProps) {
   const [events, setEvents] = useState<SseEvent[]>([]);
   const [done, setDone] = useState(false);
   const [error, setError] = useState<string | null>(null);
@@ -27,6 +32,7 @@ export function ProgressTerminal({ jobId }: { jobId: string }) {
       setEvents(prev => [...prev, data]);
       if (data.progress !== undefined) setCurrentProgress(data.progress);
       if (data.total !== undefined) setCurrentTotal(data.total);
+      onStageChange?.(data.stage);
       if (data.stage === "done") { setDone(true); es.close(); router.refresh(); }
       if (data.stage === "error") { setError(data.message); es.close(); }
     };

@@ -38,7 +38,7 @@ export default async function DashboardPage() {
   ];
 
   return (
-    <div className="max-w-5xl">
+    <div>
       <div className="mb-8">
         <h1 className="text-2xl font-extrabold tracking-tight mb-1">Dashboard</h1>
         <p className="text-muted-foreground text-sm">Your lead generation overview.</p>
@@ -46,21 +46,21 @@ export default async function DashboardPage() {
 
       <div className="grid grid-cols-2 lg:grid-cols-4 gap-3 mb-8">
         {statCards.map(({ label, value, icon: Icon, accent }) => (
-          <Card key={label} className="border-border">
+          <Card key={label} className="border-0 shadow-sm ring-1 ring-black/5">
             <CardContent className="pt-5 pb-5">
               <div className="flex items-center justify-between mb-3">
-                <span className="text-xs font-medium text-muted-foreground uppercase tracking-wide">{label}</span>
+                <span className="text-xs font-medium text-muted-foreground tracking-wide">{label}</span>
                 <div className={`w-7 h-7 rounded-lg flex items-center justify-center ${accent ? "bg-accent-muted" : "bg-secondary"}`}>
                   <Icon size={13} className={accent ? "text-accent-dim" : "text-muted-foreground"} />
                 </div>
               </div>
-              <span className="text-3xl font-extrabold tracking-tight tabular-nums">{value}</span>
+              <span className={`text-3xl font-extrabold tracking-tight tabular-nums ${accent ? "text-accent-dim" : ""}`}>{value}</span>
             </CardContent>
           </Card>
         ))}
       </div>
 
-      <Card>
+      <Card className="border-0 shadow-sm ring-1 ring-black/5">
         <CardHeader className="pb-3">
           <div className="flex items-center justify-between">
             <CardTitle className="text-base">Recent jobs</CardTitle>

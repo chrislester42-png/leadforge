@@ -8,6 +8,7 @@ import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { ProgressTerminal } from "./progress-terminal";
+import { PipelineSteps } from "./pipeline-steps";
 
 const schema = z.object({
   jobTitle: z.string().min(1, "Required"),
@@ -19,10 +20,13 @@ const schema = z.object({
 
 type ScrapeFormData = z.infer<typeof schema>;
 
+const cardCls = "border-0 shadow-sm ring-1 ring-black/5 h-full";
+
 export function ScrapeForm() {
   const [jobId, setJobId] = useState<string | null>(null);
   const [starting, setStarting] = useState(false);
   const [startError, setStartError] = useState("");
+  const [activeStage, setActiveStage] = useState("idle");
   const { register, handleSubmit, formState: { errors } } = useForm<ScrapeFormData>({
     resolver: zodResolver(schema),
     defaultValues: { targetCount: 100 },
@@ -42,53 +46,78 @@ export function ScrapeForm() {
   }
 
   if (jobId) return (
-    <div className="max-w-2xl">
-      <h2 className="text-lg font-semibold mb-4">Scrape in progress</h2>
-      <ProgressTerminal jobId={jobId} />
-      <p className="text-sm text-muted-foreground mt-4">
-        You can safely leave this page — the job will continue running.
-      </p>
+    <div>
+      <div className="mb-8">
+        <h1 className="text-2xl font-extrabold tracking-tight mb-1">New scrape</h1>
+        <p className="text-muted-foreground text-sm">Your job is running. You can safely leave this page.</p>
+      </div>
+      <div className="grid lg:grid-cols-[3fr_2fr] gap-6 items-stretch">
+        <Card className={cardCls}>
+          <CardContent className="pt-6">
+            <ProgressTerminal jobId={jobId} onStageChange={setActiveStage} />
+          </CardContent>
+        </Card>
+        <Card className={cardCls}>
+          <CardHeader><CardTitle>Pipeline</CardTitle></CardHeader>
+          <CardContent><PipelineSteps activeStage={activeStage} /></CardContent>
+        </Card>
+      </div>
     </div>
   );
 
   return (
-    <Card className="max-w-lg">
-      <CardHeader><CardTitle>New Scrape Job</CardTitle></CardHeader>
-      <CardContent>
-        <form onSubmit={handleSubmit(onSubmit)} className="space-y-4">
-          <div className="grid grid-cols-2 gap-4">
-            <div className="space-y-1.5">
-              <Label>Job Title</Label>
-              <Input placeholder="CEO, Marketing Manager..." {...register("jobTitle")} />
-              {errors.jobTitle && <p className="text-destructive text-xs">{errors.jobTitle.message}</p>}
-            </div>
-            <div className="space-y-1.5">
-              <Label>Industry / Niche</Label>
-              <Input placeholder="SaaS, Real Estate..." {...register("industry")} />
-              {errors.industry && <p className="text-destructive text-xs">{errors.industry.message}</p>}
-            </div>
-          </div>
-          <div className="grid grid-cols-2 gap-4">
-            <div className="space-y-1.5">
-              <Label>Location <span className="text-muted-foreground text-xs">(optional)</span></Label>
-              <Input placeholder="New York, USA..." {...register("location")} />
-            </div>
-            <div className="space-y-1.5">
-              <Label>Lead Count</Label>
-              <Input type="number" min={10} max={1000} {...register("targetCount", { valueAsNumber: true })} />
-              {errors.targetCount && <p className="text-destructive text-xs">{errors.targetCount.message}</p>}
-            </div>
-          </div>
-          <div className="space-y-1.5">
-            <Label>Keywords <span className="text-muted-foreground text-xs">(optional)</span></Label>
-            <Input placeholder="e.g. 'Series A funded', 'hiring'..." {...register("keywords")} />
-          </div>
-          {startError && <p className="text-destructive text-sm">{startError}</p>}
-          <Button type="submit" variant="accent" className="w-full" disabled={starting}>
-            {starting ? "Starting..." : "Start Scrape →"}
-          </Button>
-        </form>
-      </CardContent>
-    </Card>
+    <div>
+      <div className="mb-8">
+        <h1 className="text-2xl font-extrabold tracking-tight mb-1">New scrape</h1>
+        <p className="text-muted-foreground text-sm">Find professionals and companies to build relationships with.</p>
+      </div>
+      <div className="grid lg:grid-cols-[3fr_2fr] gap-6 items-stretch">
+        {/* Job details card */}
+        <Card className={cardCls}>
+          <CardHeader><CardTitle>Job details</CardTitle></CardHeader>
+          <CardContent>
+            <form onSubmit={handleSubmit(onSubmit)} className="space-y-4">
+              <div className="grid grid-cols-2 gap-4">
+                <div className="space-y-1.5">
+                  <Label>Job title</Label>
+                  <Input placeholder="Owner, Practice Owner, Lead Dentist..." {...register("jobTitle")} />
+                  {errors.jobTitle && <p className="text-destructive text-xs">{errors.jobTitle.message}</p>}
+                </div>
+                <div className="space-y-1.5">
+                  <Label>Industry / niche</Label>
+                  <Input placeholder="Dental, Healthcare, Veterinary..." {...register("industry")} />
+                  {errors.industry && <p className="text-destructive text-xs">{errors.industry.message}</p>}
+                </div>
+              </div>
+              <div className="grid grid-cols-2 gap-4">
+                <div className="space-y-1.5">
+                  <Label>Location <span className="text-muted-foreground text-xs">(optional)</span></Label>
+                  <Input placeholder="Texas, Dallas-Fort Worth..." {...register("location")} />
+                </div>
+                <div className="space-y-1.5">
+                  <Label>Lead count</Label>
+                  <Input type="number" min={10} max={1000} {...register("targetCount", { valueAsNumber: true })} />
+                  {errors.targetCount && <p className="text-destructive text-xs">{errors.targetCount.message}</p>}
+                </div>
+              </div>
+              <div className="space-y-1.5">
+                <Label>Keywords <span className="text-muted-foreground text-xs">(optional)</span></Label>
+                <Input placeholder="e.g. 'dental', 'private practice', 'physician'..." {...register("keywords")} />
+              </div>
+              {startError && <p className="text-destructive text-sm">{startError}</p>}
+              <Button type="submit" variant="accent" className="w-full" disabled={starting}>
+                {starting ? "Starting..." : "Start scrape →"}
+              </Button>
+            </form>
+          </CardContent>
+        </Card>
+
+        {/* Pipeline card */}
+        <Card className={cardCls}>
+          <CardHeader><CardTitle>Pipeline</CardTitle></CardHeader>
+          <CardContent><PipelineSteps activeStage="idle" /></CardContent>
+        </Card>
+      </div>
+    </div>
   );
 }

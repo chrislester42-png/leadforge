@@ -103,21 +103,25 @@ export default function LandingPage() {
       </nav>
 
       {/* Hero — asymmetric layout */}
-      <section className="pt-36 pb-20 px-6">
-        <div className="max-w-6xl mx-auto grid lg:grid-cols-2 gap-16 items-center">
+      <section className="pt-36 pb-20 px-6 relative overflow-hidden">
+        {/* Ambient glow */}
+        <div className="absolute inset-0 pointer-events-none" aria-hidden="true">
+          <div className="absolute top-0 left-1/2 -translate-x-1/2 w-[900px] h-[500px] rounded-full opacity-[0.07]" style={{ background: "radial-gradient(ellipse, hsl(82 68% 50%) 0%, transparent 70%)" }} />
+        </div>
+        <div className="max-w-6xl mx-auto grid lg:grid-cols-2 gap-16 items-center relative">
           {/* Left: copy */}
           <div>
-            <div className="inline-flex items-center gap-2 bg-accent-muted rounded-full px-3.5 py-1.5 mb-7 text-xs font-semibold text-accent-dim tracking-wide uppercase">
+            <div className="animate-fade-in inline-flex items-center gap-2 bg-accent-muted rounded px-3 py-1.5 mb-7 text-xs font-semibold text-accent-dim tracking-wide">
               <Zap size={11} />
               AI-powered lead generation
             </div>
-            <h1 className="text-5xl md:text-6xl font-extrabold leading-[1.08] tracking-tight mb-6">
+            <h1 className="animate-fade-in-up animation-delay-100 text-6xl md:text-7xl font-extrabold leading-[1.04] tracking-tight mb-6">
               Enrich leads.<br />Scale revenue.
             </h1>
-            <p className="text-lg text-muted-foreground mb-9 leading-relaxed max-w-lg">
+            <p className="animate-fade-in-up animation-delay-200 text-lg text-muted-foreground mb-9 leading-relaxed max-w-lg">
               Scrape verified B2B contacts, enrich emails via Anymailfinder, and let Claude write a personalized opener for every single lead — then push straight to Instantly.
             </p>
-            <div className="flex items-center gap-3 flex-wrap">
+            <div className="animate-fade-in-up animation-delay-300 flex items-center gap-3 flex-wrap">
               <Link href="/auth/signup" className="inline-flex items-center gap-2 bg-primary text-primary-foreground px-6 py-3 rounded-xl text-sm font-bold hover:opacity-85 transition-all duration-200 hover:scale-[1.02] active:scale-[0.98]">
                 Start for free <ArrowRight size={15} />
               </Link>
@@ -125,11 +129,11 @@ export default function LandingPage() {
                 See how it works
               </a>
             </div>
-            <p className="mt-4 text-xs text-muted-foreground">No credit card required · 100 free leads on signup</p>
+            <p className="animate-fade-in-up animation-delay-400 mt-4 text-xs text-muted-foreground">No credit card required · 100 free leads on signup</p>
           </div>
 
           {/* Right: lead table mockup */}
-          <div className="hidden lg:block">
+          <div className="animate-slide-in-right animation-delay-300 hidden lg:block">
             <div className="rounded-2xl bg-sidebar border border-sidebar-border overflow-hidden shadow-2xl">
               <div className="flex items-center justify-between px-4 py-3 border-b border-sidebar-border">
                 <div className="flex items-center gap-1.5">
@@ -192,24 +196,27 @@ export default function LandingPage() {
 
       {/* How it works */}
       <section id="how-it-works" className="py-24 px-6">
-        <div className="max-w-5xl mx-auto">
-          <div className="mb-16">
-            <h2 className="text-4xl font-extrabold tracking-tight mb-3">From zero to outreach in minutes</h2>
-            <p className="text-muted-foreground text-lg max-w-lg">Three steps. No manual research. No stale spreadsheets.</p>
+        <div className="max-w-5xl mx-auto grid md:grid-cols-[2fr_3fr] gap-16 items-start">
+          {/* Left: sticky header */}
+          <div className="md:sticky md:top-28">
+            <h2 className="text-4xl font-extrabold tracking-tight mb-4">From zero to outreach in minutes</h2>
+            <p className="text-muted-foreground text-base leading-relaxed max-w-xs">Three steps. No manual research. No stale spreadsheets.</p>
           </div>
-          <div className="grid md:grid-cols-3 gap-0 relative">
-            {/* Connecting line */}
-            <div className="hidden md:block absolute top-7 left-[16.66%] right-[16.66%] h-px bg-border" />
+          {/* Right: numbered steps vertical stack */}
+          <div className="space-y-0 divide-y divide-border">
             {steps.map(({ number, title, description }, i) => (
-              <div key={number} className="relative">
-                <div className="flex items-center gap-3 mb-5">
-                  <div className="w-14 h-14 rounded-2xl bg-sidebar flex items-center justify-center shrink-0 relative z-10">
-                    <span className="text-accent font-black text-base font-mono">{number}</span>
-                  </div>
-                  {i < 2 && <div className="md:hidden h-px flex-1 bg-border" />}
+              <div
+                key={number}
+                className="animate-fade-in-up py-8 flex gap-6 items-start"
+                style={{ animationDelay: `${i * 120}ms` }}
+              >
+                <div className="w-12 h-12 rounded-xl bg-sidebar flex items-center justify-center shrink-0">
+                  <span className="text-accent font-black text-sm font-mono">{number}</span>
                 </div>
-                <h3 className="text-lg font-bold mb-2 pr-8">{title}</h3>
-                <p className="text-muted-foreground text-sm leading-relaxed pr-8">{description}</p>
+                <div>
+                  <h3 className="text-lg font-bold mb-2">{title}</h3>
+                  <p className="text-muted-foreground text-sm leading-relaxed">{description}</p>
+                </div>
               </div>
             ))}
           </div>
@@ -224,8 +231,12 @@ export default function LandingPage() {
             <p className="text-muted-foreground text-lg max-w-lg">One tool. Four stages. Zero manual work.</p>
           </div>
           <div className="grid md:grid-cols-2 gap-5">
-            {features.map(({ icon: Icon, title, description }) => (
-              <div key={title} className="bg-card rounded-2xl border border-border p-8 hover:border-accent/30 hover:shadow-lg transition-all duration-300 group">
+            {features.map(({ icon: Icon, title, description }, i) => (
+              <div
+                key={title}
+                className="animate-fade-in-up bg-card rounded-2xl p-8 shadow-sm hover:shadow-md transition-all duration-300 group ring-1 ring-black/5"
+                style={{ animationDelay: `${i * 80}ms` }}
+              >
                 <div className="w-10 h-10 rounded-xl bg-accent-muted flex items-center justify-center mb-5 group-hover:bg-accent/20 transition-colors duration-300">
                   <Icon size={18} className="text-accent-dim" />
                 </div>
@@ -243,20 +254,36 @@ export default function LandingPage() {
           <div className="mb-16">
             <h2 className="text-4xl font-extrabold tracking-tight mb-3">Results that speak for themselves</h2>
           </div>
-          <div className="grid md:grid-cols-3 gap-5">
-            {testimonials.map(({ quote, name, role, stat }) => (
-              <div key={name} className="bg-card rounded-2xl border border-border p-7 flex flex-col">
-                <div className="inline-flex items-center gap-1.5 bg-accent-muted text-accent-dim text-xs font-bold px-2.5 py-1 rounded-md self-start mb-5 tracking-wide">
+          <div className="space-y-5">
+            {/* Featured — full-width dark card */}
+            <div className="bg-sidebar rounded-2xl p-8 md:p-10 grid md:grid-cols-[200px_1fr] gap-8 md:gap-12 items-start relative overflow-hidden">
+              <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_bottom_right,_hsl(82_90%_60%_/_0.06)_0%,_transparent_60%)] pointer-events-none" />
+              <div className="relative">
+                <div className="inline-flex items-center gap-1.5 bg-accent/15 text-accent text-xs font-bold px-2.5 py-1 rounded-md mb-5 tracking-wide">
                   <TrendingUp size={11} />
-                  {stat}
+                  {testimonials[0].stat}
                 </div>
-                <p className="text-sm leading-relaxed text-muted-foreground flex-1 mb-6">&ldquo;{quote}&rdquo;</p>
-                <div className="border-t border-border pt-4">
-                  <p className="font-semibold text-sm">{name}</p>
-                  <p className="text-xs text-muted-foreground mt-0.5">{role}</p>
-                </div>
+                <p className="font-semibold text-white text-sm">{testimonials[0].name}</p>
+                <p className="text-sidebar-foreground text-xs mt-0.5">{testimonials[0].role}</p>
               </div>
-            ))}
+              <p className="relative text-white/85 text-lg md:text-xl leading-relaxed font-light">&ldquo;{testimonials[0].quote}&rdquo;</p>
+            </div>
+            {/* Two smaller — 2-col */}
+            <div className="grid md:grid-cols-2 gap-5">
+              {testimonials.slice(1).map(({ quote, name, role, stat }) => (
+                <div key={name} className="bg-card rounded-2xl border border-border p-7 flex flex-col">
+                  <div className="inline-flex items-center gap-1.5 bg-accent-muted text-accent-dim text-xs font-bold px-2.5 py-1 rounded-md self-start mb-5 tracking-wide">
+                    <TrendingUp size={11} />
+                    {stat}
+                  </div>
+                  <p className="text-sm leading-relaxed text-muted-foreground flex-1 mb-6">&ldquo;{quote}&rdquo;</p>
+                  <div className="border-t border-border pt-4">
+                    <p className="font-semibold text-sm">{name}</p>
+                    <p className="text-xs text-muted-foreground mt-0.5">{role}</p>
+                  </div>
+                </div>
+              ))}
+            </div>
           </div>
         </div>
       </section>
@@ -270,9 +297,9 @@ export default function LandingPage() {
           </div>
           <div className="grid md:grid-cols-2 gap-5 max-w-2xl mx-auto">
             {pricingPlans.map(({ name, price, period, description, features, popular }) => (
-              <div key={name} className={`rounded-2xl border p-8 relative flex flex-col ${popular ? "border-accent bg-card shadow-xl shadow-accent/5" : "border-border bg-card"}`}>
+              <div key={name} className={`rounded-2xl p-8 relative flex flex-col ${popular ? "bg-card ring-2 ring-accent/60 shadow-xl shadow-accent/8" : "bg-card ring-1 ring-black/5 shadow-sm"}`}>
                 {popular && (
-                  <div className="absolute -top-3 left-6 bg-accent text-accent-foreground text-xs font-bold px-3 py-1 rounded-full tracking-wide">
+                  <div className="absolute -top-3 left-6 bg-accent text-accent-foreground text-xs font-bold px-2.5 py-1 rounded tracking-wide">
                     Most popular
                   </div>
                 )}
@@ -309,8 +336,10 @@ export default function LandingPage() {
       <section className="py-24 px-6">
         <div className="max-w-3xl mx-auto">
           <div className="bg-sidebar rounded-3xl p-14 text-center relative overflow-hidden">
-            {/* Subtle radial glow */}
-            <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_top,_hsl(82_90%_60%_/_0.08)_0%,_transparent_70%)] pointer-events-none" />
+            {/* Radial glow — top center */}
+            <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_top,_hsl(82_68%_50%_/_0.12)_0%,_transparent_65%)] pointer-events-none" />
+            {/* Radial glow — bottom right */}
+            <div className="absolute bottom-0 right-0 w-64 h-64 bg-[radial-gradient(ellipse,_hsl(82_68%_50%_/_0.05)_0%,_transparent_70%)] pointer-events-none" />
             <div className="relative">
               <h2 className="text-white text-4xl font-extrabold tracking-tight mb-4 leading-tight">
                 Get 100 free leads today.
